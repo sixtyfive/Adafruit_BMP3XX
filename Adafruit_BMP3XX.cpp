@@ -28,7 +28,7 @@
 #include "Adafruit_BMP3XX.h"
 #include "Arduino.h"
 
-//#define BMP3XX_DEBUG
+// #define BMP3XX_DEBUG
 
 Adafruit_I2CDevice *i2c_dev = NULL; ///< Global I2C interface pointer
 Adafruit_SPIDevice *spi_dev = NULL; ///< Global SPI interface pointer
@@ -233,6 +233,10 @@ bool Adafruit_BMP3XX::_init(void) {
 
   // don't do anything till we request a reading
   the_sensor.settings.op_mode = BMP3_MODE_FORCED;
+  // the_sensor.settings.op_mode = BMP3_MODE_NORMAL;
+  // ^ as per https://github.com/adafruit/Adafruit_BMP3XX/issues/1
+  //   but according to datasheet, recommended for applications
+  //   where short-term changes _should_be_filtered_out_
 
   return true;
 }
